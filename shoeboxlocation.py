@@ -12,10 +12,11 @@ mode = dropbox.files.WriteMode.overwrite
 
 @app.route('/here', methods=['POST'])
 def here_is_shoebox():
-    data = json.loads(request.data)
+    data = request.data
     res = dbx.files_upload(data, filename, mode,
         client_modified=datetime.datetime.now(),
         mute=True)
+    return "success"
 
 @app.route('/where', methods=['GET'])
 def where_is_shoebox():
