@@ -1,10 +1,11 @@
+import os
 import json
 import dropbox
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-filename = app.config["FILE"]
-access_token = app.config["TOKEN"]
+filename = os.getenv("FILE")
+access_token = os.getenv("TOKEN")
 dbx = dropbox.Dropbox(access_token)
 mode = dropbox.files.WriteMode.overwrite
 
