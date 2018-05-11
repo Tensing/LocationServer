@@ -3,7 +3,6 @@ import dropbox
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
-app.config.from_pyfile('config.cfg')
 filename = app.config["FILE"]
 access_token = app.config["TOKEN"]
 dbx = dropbox.Dropbox(access_token)
