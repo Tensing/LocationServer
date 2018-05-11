@@ -1,16 +1,10 @@
-import unittest
-from shoeboxlocation import here_is_shoebox, where_is_shoebox
+import shoeboxlocation
+from unittest import TestCase
 
-class TestRequests(unittest.TestCase):
-    def test_here_equals(self):
-        request = {
-            "data" : {
-                "lon": 12,
-                "lat": 34
-            }
-        }
-        self.assertTrue(here_is_shoebox)
+wclass TestIntegrations(TestCase):
+    def setUp(self):
+        self.app = app.test_client()
 
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_thing(self):
+        response = self.app.post('/where', json='{"lon": 12,"lat": 35}')
+        assert <make your assertion here>
