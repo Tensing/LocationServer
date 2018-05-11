@@ -1,4 +1,4 @@
 Flask==1.0.2
 py==3.6.3
 requests==2.18.4
-dropbox=8.8.1
+dropbox==8.8.1
