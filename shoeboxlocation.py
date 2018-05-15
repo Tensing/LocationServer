@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """API for retrieving updating and retrieving the location of an indoor object (shoebox).
 
