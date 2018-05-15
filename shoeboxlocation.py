@@ -32,7 +32,7 @@ def here_is_shoebox():\
     res = dbx.files_upload(data, filename, mode,
         client_modified=datetime.datetime.now(),
         mute=True)
-    return "success"
+    return jsonify(data)
 
 @app.route('/where', methods=['GET'])
 def where_is_shoebox():
