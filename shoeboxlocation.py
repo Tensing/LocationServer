@@ -23,7 +23,7 @@ mode = dropbox.files.WriteMode.overwrite
 
 # Endpoints
 @app.route('/here', methods=['POST'])
-def here_is_shoebox():\
+def here_is_shoebox():
     """Endpoint for updating the shoebox location. It accepts POST requests with
     a JSON string containing "lat" and "lon" values (latitude and longitude
     coordinates in WGS84)."""
