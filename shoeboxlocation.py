@@ -10,6 +10,7 @@ requesting the latest known location of the asset.
 
 import os
 import json
+import geojson
 import datetime
 import dropbox
 from flask import Flask, request, jsonify
@@ -38,24 +39,21 @@ mode = dropbox.files.WriteMode.overwrite
 @app.route('/here', methods=['POST'])
 def here_is_shoebox():
     """Endpoint for updating the shoebox location. It accepts POST requests with
-    a JSON string containing "lat" and "lon" values (latitude and longitude
-    coordinates in WGS84)."""
+    a GeoJSON string containing a single point feature."""
     # Check if data can be read
     data = request.data
     try:
         data = data.decode()
     except AttributeError:
         return "Could not read post body", 400
-    # Check if data contains JSON object
+    # Check if data contains GeoJSON object
     try:
-        data = json.loads(data)
+        data = geojson.loads(data)
     except:
-        return "Please provide a JSON string", 400
-    # Check if lat and lon are present and of type float
-    if not "lat" in data.keys() or not "lon" in data.keys():
-        return "Please provide 'lat' and 'lon' coordinates in the post body.", 400
-    elif not isinstance(data['lat'], float) or not isinstance(data['lon'], float):
-        return "Please provide 'lat' and 'lon' coordinates as type float.", 400
+        return "Please provide a GeoJSON string", 400
+    # Check if only contains a single point feature
+    # <Implement here>
+
     # If data is correct, write it to file
     res = dbx.files_upload(json.dumps(data).encode(), filename, mode,
         client_modified=datetime.datetime.now(),
@@ -64,9 +62,8 @@ def here_is_shoebox():
 
 @app.route('/where', methods=['GET'])
 def where_is_shoebox():
-    """Endpoint for retrieving the shoebox location. It returns a JSON string
-    containing "lat" and "lon" values (latitude and longitude coordinates in
-    WGS84)."""
+    """Endpoint for retrieving the shoebox location. It returns a GeoJSON string
+    containing a single point feature with the last known location of the shoebox."""
     metadata,res = dbx.files_download(filename)
     location = json.loads(res.content)
     return jsonify(location)
