@@ -21,7 +21,7 @@ class TestIntegrations(unittest.TestCase):
                               }}
         self.test_str = json.dumps(self.test_location)
         self.test_tuple = '4.5703125,51.83577752045248'
-        self.test_collection =
+
 
     def test_here_status(self):
         """Test if the 'here' endpoint is handling incoming post requests."""
