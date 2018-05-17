@@ -46,19 +46,19 @@ def here_is_shoebox():
         data = data.decode()
     except AttributeError:
         return "Could not read post body", 400
-    # Check if data contains GeoJSON object
+    # Check if data contains a valid GeoJSON object
     try:
         data = geojson.loads(data)
     except:
         return "Please provide a GeoJSON string", 400
-    # Check if only contains a single point feature
-    # <Implement here>
-
+    # Check if only data contains a single point feature
+    if not data.type.lower() == "feature" or not data.geometry.type.lower() == "point":
+        return "Please provide a single GeoJSON point feature", 400
     # If data is correct, write it to file
     res = dbx.files_upload(json.dumps(data).encode(), filename, mode,
         client_modified=datetime.datetime.now(),
         mute=True)
-    return "success"
+    return "Location update successful"
 
 @app.route('/where', methods=['GET'])
 def where_is_shoebox():
